@@ -1,0 +1,28 @@
+.project {
+    padding-top: 6px;
+    padding-left: 3px;
+    margin-top: 0px !important;
+    margin-bottom: 0px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+}
+
+.project .project-controls {
+    font-size: 12px;
+    margin-right: 10px;
+    border-right: 1px solid #eee;
+    padding-right: 10px;
+}
+
+.button-area {
+    width: 400px;
+}
+
+.header-button {
+    width: 25%;
+    margin-left: 0px;
+}
+
+.dropdown-menu {
+    width: 100%;
+}

@@ -1,0 +1,10 @@
+{
+    "id": "projectManagement",
+    "name": "ProjectManagement",
+    "description": "Simple project management suite for your spaces.",
+    "keywords": ["Project", "Management"],
+    "version": "0.0.1",
+    "humhub": {
+        "minVersion": "0.20"
+    }
+}
