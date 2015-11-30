@@ -15,9 +15,9 @@ humhub\modules\project_management\Assets::register($this);
     Projects <span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu">
         <?php foreach($projects as $project) : ?>
-            <li>       
+            <li>
                 <?php echo \humhub\widgets\AjaxButton::widget([
-                    'label' => '<button class="btn btn-default btn-block"><i class="fa fa-arrow-circle-o-right"></i> ' . $project->name . '</button>', 
+                    'label' => '<button class="btn btn-default btn-block"><i class="fa fa-arrow-circle-o-right"></i> ' . $project->name . '</button>',
                     'tag' => 'a',
                     'ajaxOptions' => [
                         'dataType' => "json",
@@ -28,7 +28,7 @@ humhub\modules\project_management\Assets::register($this);
                 ]);?>
             </li>
         <?php endforeach ?>
-        <a href="<?php echo $contentContainer->createUrl('edit'); ?>" class="btn btn-primary"
+        <a href="<?php echo $contentContainer->createUrl('editproject'); ?>" class="btn btn-primary"
     data-target="#globalModal"><i class="fa fa-plus"></i> <?php echo Yii::t('ProjectManagementModule.views_view_show', 'Add Project'); ?></a>
     </ul>
         </button>
@@ -82,5 +82,7 @@ humhub\modules\project_management\Assets::register($this);
 <div id="project-list">
 </div>
 <br>
+<a href="<?php echo $contentContainer->createUrl('edittask'); ?>" class="btn btn-primary"
+    data-target="#globalModal"><i class="fa fa-plus"></i> <?php echo Yii::t('ProjectManagementModule.views_view_show', 'Add Task'); ?></a>
 </div>
 </div>

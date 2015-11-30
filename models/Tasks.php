@@ -23,6 +23,12 @@ class Tasks extends ContentActiveRecord implements \humhub\modules\search\interf
 
     public $ownerGuid = "";
 
+    const PRIORITY_UNKNOWN = 0;
+    const PRIORITY_BLOCKER = 1;
+    const PRIORITY_CRITICAL = 2;
+    const PRIORITY_MAJOR = 3;
+    const PRIORITY_LOW = 4;
+
     public static function tableName()
     {
         return 'project_management_tasks';
@@ -30,7 +36,7 @@ class Tasks extends ContentActiveRecord implements \humhub\modules\search\interf
 
     public function rules()
     {
-        
+
         return array(
             array(['id'], 'required')
         );
@@ -40,7 +46,7 @@ class Tasks extends ContentActiveRecord implements \humhub\modules\search\interf
     {
         return 'Tasks';
     }
-    
+
     public function getUrl()
     {
         return $this->content->container->createUrl('/project_management/views/tasks', array('id' => $this->id));

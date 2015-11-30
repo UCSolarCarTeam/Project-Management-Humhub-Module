@@ -26,3 +26,12 @@
 .dropdown-menu {
     width: 100%;
 }
+
+.task-list {
+    width: 50%;
+}
+
+#task-details {
+    width: 40%;
+    text-align: left;
+}
