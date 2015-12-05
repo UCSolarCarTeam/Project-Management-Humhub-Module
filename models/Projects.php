@@ -49,7 +49,7 @@ class Projects extends ContentActiveRecord implements \humhub\modules\search\int
     {
         return $this->hasOne(User::className(), ['id' => 'project_owner']);
     }
-    
+
     public function getTasks()
     {
         $query = $this->hasMany(Tasks::className(), ['project_id' => 'id']);
@@ -65,9 +65,7 @@ class Projects extends ContentActiveRecord implements \humhub\modules\search\int
             $user = User::findOne(['guid' => $guid]);
             $this->project_owner = $user->id;
         }
-            
-    
-        
+
         return parent::beforeSave($insert);
     }
 

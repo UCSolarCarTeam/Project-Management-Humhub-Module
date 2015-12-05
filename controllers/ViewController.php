@@ -89,9 +89,9 @@ class ViewController extends ContentContainerController
     }
 
     public function actionEdittask() {
-        $id = (int) Yii::$app->request->get('id');
-        $task = Tasks::find()->contentContainer($this->contentContainer)->readable()->where(['project_management_tasks.project_id' => $id])->one();
-
+        $id = (int) Yii::$app->request->get('task_id');
+        $task = Tasks::find()->contentContainer($this->contentContainer)->readable()->where(['project_management_tasks.id' => $id])->one();
+        $project = Projects::find()->contentContainer($this->contentContainer)->readable()->where(['project_management_projects.id' => $id])->one();
         if ($task == null) {
             $task = new Tasks();
             $task->content->container = $this->contentContainer;
@@ -105,7 +105,7 @@ class ViewController extends ContentContainerController
             }
         }
 
-        return $this->renderAjax('edit_task', ['task'=>$task]);
+        return $this->renderAjax('edit_task', ['task'=>$task, 'project'=>$project]);
 
     }
 

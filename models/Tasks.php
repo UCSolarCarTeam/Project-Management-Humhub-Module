@@ -38,13 +38,41 @@ class Tasks extends ContentActiveRecord implements \humhub\modules\search\interf
     {
 
         return array(
-            array(['id'], 'required')
+            array(['project_id', 'title', 'priority'], 'required'),
+            array(['ownerGuid', 'project_id', 'description', 'deadline'], 'safe'),
         );
     }
 
     public function formName()
     {
         return 'Tasks';
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->deadline == '')
+        {
+            $this->deadline = new \yii\db\Expression('NULL');
+        }
+        else
+        {
+            $this->deadline = Yii::$app->formatter->asDateTime($this->deadline, 'php:Y-m-d H:i:s');
+        }
+
+        return parent::beforeSave($insert);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $guid = rtrim($this->ownerGuid, ',');
+        if ($this->ownerGuid != null)
+        {
+            $user = User::findOne(['guid' => $guid]);
+            $this->assignee = $user->id;
+        }
+
     }
 
     public function getUrl()

@@ -92,6 +92,7 @@ use humhub\modules\project_management\models\Tasks;
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <?php echo $form->hiddenField($task, 'project_id', ['value' => '1']); ?>
                     <?php echo Html::submitButton(Yii::t('ProjectManagementModule.views_view_edit_task', 'Save'), array('class' => 'btn btn-primary')); ?>
 
                     <button type="button" class="btn btn-primary"
