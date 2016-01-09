@@ -20,10 +20,19 @@ class ViewController extends ContentContainerController
 
     public function actionShow()
     {
+
+        $delete = (bool) Yii::$app->request->get('delete');
+        $project_id = (int) Yii::$app->request->get('project_id');
+        $project_name = (string) Yii::$app->request->get('project_name');
+        $task_id = (int) Yii::$app->request->get('task_id');
         $projects = Projects::find()->contentContainer($this->contentContainer)->readable()->all(); // might need to change
         return $this->render('show', [
             'projects' => $projects,
-            'contentContainer' => $this->contentContainer
+            'contentContainer' => $this->contentContainer,
+            'delete' => $delete,
+            'project_id' => $project_id,
+            'project_name' => $project_name,
+            'task_id' => $task_id
 
         ]);
     }
@@ -42,9 +51,15 @@ class ViewController extends ContentContainerController
         $tasks = Tasks::find()->where(['project_management_tasks.project_id' => $id])->all();
         return $this->renderPartial('tasks', [
             'contentContainer' => $this->contentContainer,
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'id' => $id
 
         ]);
+    }
+
+    protected function renderDiscussion($id)
+    {
+        //TODO
     }
 
     public function actionTasks()
@@ -91,7 +106,7 @@ class ViewController extends ContentContainerController
     public function actionEdittask() {
         $id = (int) Yii::$app->request->get('task_id');
         $task = Tasks::find()->contentContainer($this->contentContainer)->readable()->where(['project_management_tasks.id' => $id])->one();
-        $project = Projects::find()->contentContainer($this->contentContainer)->readable()->where(['project_management_projects.id' => $id])->one();
+        $project_id = (int) Yii::$app->request->get('project_id');
         if ($task == null) {
             $task = new Tasks();
             $task->content->container = $this->contentContainer;
@@ -105,8 +120,23 @@ class ViewController extends ContentContainerController
             }
         }
 
-        return $this->renderAjax('edit_task', ['task'=>$task, 'project'=>$project]);
+        return $this->renderAjax('edit_task', ['task'=>$task, 'project_id'=>$project_id]);
 
+    }
+
+    public function actionDeletetask() {
+
+        $id = (int) Yii::$app->request->get('id');
+
+        if ($id != 0) {
+            $task = Tasks::find()->contentContainer($this->contentContainer)->where(['project_management_tasks.id' => $id])->one();
+            if ($task) {
+                $task->delete();
+            }
+        }
+
+        Yii::$app->response->format='json';
+        return ['status'=>'ok'];
     }
 
 }

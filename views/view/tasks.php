@@ -11,15 +11,19 @@ humhub\modules\project_management\Assets::register($this);
 <div class="panel-body">
 <div class="task-list pull-left">
     <?php foreach($tasks as $task) : ?>
-        <div>
+        <div id="task_<?php echo $task->id ?>">
             <?php echo \humhub\widgets\AjaxButton::widget([
-                'label' => '<button class="btn btn-default btn-block"><i class="fa fa-arrow-circle-o-right"></i> ' . $task->title . '</button>',
+                'label' => '<button class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i> ' . $task->title . '</button>',
                 'tag' => 'a',
                 'ajaxOptions' => [
                 'dataType' => "json",
                 'beforeSend' => "showDetails('" . $task->title . "', '" . $task->priority . "', '" . $task->description . "')",
                     ]
             ]);?>
+            <a href="<?php echo $contentContainer->createUrl('edittask', ['task_id' => $task->id, 'project_id' => $id]); ?>"
+                class="tt"
+                data-target="#globalModal" data-toggle="tooltip"
+                data-placement="top" data-original-title="Edit Task"><i class="fa fa-file"></i></a>
         </div>
     <?php endforeach ?>
 </div>
@@ -31,8 +35,12 @@ humhub\modules\project_management\Assets::register($this);
     <p id="task-description"><?php echo 'Description'; ?></p>
 
 </div>
-    <?php endif; ?>
+<?php endif; ?>
 </div>
+</div>
+<div>
+<a href="<?php echo $contentContainer->createUrl('edittask', ['project_id' => $id]); ?>" class="btn btn-primary"
+    data-target="#globalModal"><i class="fa fa-plus"></i> <?php echo Yii::t('ProjectManagementModule.views_view_show', 'Add Task'); ?></a>
 </div>
 
 <script type="text/javascript">
@@ -60,6 +68,13 @@ humhub\modules\project_management\Assets::register($this);
         $('#task-title').html("Title: " + title);
         $('#task-priority').html(str);
         $('#task-description').html(description);
-        // TODO: Add description to table and output
+    }
+
+    function clearDetails(task_id)
+    {
+        $('#task_' + task_id).fadeOut('fast')
+        $('#task-title').html("Title");
+        $('#task-priority').html("Priority");
+        $('#task-description').html("Description");
     }
 </script>

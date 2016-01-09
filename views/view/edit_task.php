@@ -13,7 +13,7 @@ use humhub\modules\project_management\models\Tasks;
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <?php if (Yii::$app->request->get('id') != null) : ?>
+            <?php if (Yii::$app->request->get('task_id') != null) : ?>
             <h4 class="modal-title"
                 id="myModalLabel"><?php echo Yii::t('ProjectManagementModule.views_view_edit_task', '<strong>Edit</strong> task'); ?></h4>
             <?php else :?>
@@ -92,11 +92,15 @@ use humhub\modules\project_management\models\Tasks;
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <?php echo $form->hiddenField($task, 'project_id', ['value' => '1']); ?>
+                    <?php echo $form->hiddenField($task, 'project_id', ['value' => $project_id]); ?>
                     <?php echo Html::submitButton(Yii::t('ProjectManagementModule.views_view_edit_task', 'Save'), array('class' => 'btn btn-primary')); ?>
 
                     <button type="button" class="btn btn-primary"
                             data-dismiss="modal"><?php echo Yii::t('ProjectManagementModule.views_view_edit_task', 'Cancel'); ?></button>
+                    <?php if (Yii::$app->request->get('task_id') != null) : ?>
+                    <a href="<?php echo $this->context->contentContainer->createUrl('show', ['delete' => true, 'task_id' => ($task->id + 1)]); ?>" class="btn btn-primary"
+                        data-target="modal"><?php echo Yii::t('ProjectManagementModule.views_view_edit_task', 'Delete'); ?></a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

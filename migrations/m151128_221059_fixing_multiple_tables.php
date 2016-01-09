@@ -9,6 +9,8 @@ class m151128_221059_fixing_multiple_tables extends Migration
     {
         $this->addColumn('project_management_tasks','description', 'text');
         $this->addColumn('project_management_tasks', 'assignee', 'int(11) NOT NULL');
+        $this->addColumn('project_management_tasks', 'status', 'enum("open", "closed") DEFAULT "open"');
+        $this->alterColumn('project_management_tasks', 'priority', 'enum("unknown", "blocker", "critical", "major", "low")');
         $this->dropcolumn('project_management_assigned_users', 'task_id');
     }
 
