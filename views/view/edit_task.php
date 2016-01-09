@@ -63,7 +63,7 @@ use humhub\modules\project_management\models\Tasks;
                 <div class="col-md-6">
                     <div class ="form-group">
                         <label
-                            for="Task_deadline"><?php echo Yii::t('TasksModule.views_task_edit', 'Deadline'); ?></label>
+                            for="Task_deadline"><?php echo Yii::t('ProjectManagementModule.views_view_edit_task', 'Deadline'); ?></label>
                         <?php
                         echo DatePicker::widget([
                             'model' => $task,
